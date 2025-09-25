@@ -1,0 +1,87 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+/**
+ * Auto-generated code below aims at helping you parse
+ * the standard input according to the problem statement.
+ **/
+
+int main()
+{
+    int w; // width of the building.
+    int h; // height of the building.
+    cin >> w >> h; cin.ignore();
+    int n; // maximum number of turns before game over.
+    cin >> n; cin.ignore();
+    double x0;
+    double y0;
+    cin >> x0 >> y0; cin.ignore();
+    
+
+    int order = 0;
+    int low_x = 0;
+    int high_x = w - 1;
+    int low_y = 0;
+    int high_y = h - 1;
+    int mid_x = 0;
+    int mid_y = 0;
+
+    // game loop
+     while (1) {
+        string bomb_dir; // the direction of the bombs from batman's current location (U, UR, R, DR, D, DL, L or UL)
+        cin >> bomb_dir; cin.ignore();
+
+        if (bomb_dir == "U")
+        {
+            order = 1;
+        }
+        else if (bomb_dir == "UR")
+        {
+            order = 2;
+        }
+        else if (bomb_dir == "R")
+        {
+            order = 3;
+        }
+        else if (bomb_dir == "DR")
+        {
+            order = 4;
+        }
+        else if (bomb_dir == "D")
+        {
+            order = 5;
+        }
+        else if (bomb_dir == "DL")
+        {
+            order = 6;
+        }
+        else if (bomb_dir == "L")
+        {
+            order = 7;
+        }
+        else if (bomb_dir == "UL")
+        {
+            order = 8;
+        }
+
+
+        if ((order == 2) || (order == 3) || (order == 4))
+            low_x = x0 + 1;
+        if ((order == 6) || (order == 7) || (order == 8))
+            high_x = x0 - 1;
+        x0 = low_x + (high_x - low_x) / 2;
+
+
+        if ((order == 4) || (order == 5) || (order == 6))
+            low_y = y0 + 1;
+        if ((order == 1) || (order == 2) || (order == 8))
+            high_y = y0 - 1;
+        y0 = low_y + (high_y - low_y) / 2;
+    
+        cout << x0 << " " << y0 << endl;
+    }
+}
